@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./App.css";
+import logoLofo from "./assets/logolofo.png";
 import HomePage from "./pages/HomePage";
 import ReportListingPage from "./pages/ReportListingPage";
 import SubmitReportPage from "./pages/SubmitReportPage";
@@ -45,7 +46,7 @@ function App() {
       {/* Header */}
       <header className="lofo-header">
         <div className="lofo-logo" onClick={() => navigasiKe("home")}>
-          <span style={{ fontSize: "24px" }}>📦</span>
+          <img src={logoLofo} alt="Logo LoFo" className="lofo-logo-img" />
           <div>
             <div className="lofo-logo-title">LoFo</div>
             <div className="lofo-logo-sub">Lost and Found</div>
@@ -116,7 +117,7 @@ function App() {
       {/* Footer */}
       <footer className="lofo-footer">
         <div className="lofo-logo" onClick={() => navigasiKe("home")}>
-          <span style={{ fontSize: "20px" }}>📦</span>
+          <img src={logoLofo} alt="Logo LoFo" className="lofo-logo-img footer-logo" />
           <div>
             <div className="lofo-logo-title" style={{ fontSize: "14px" }}>LoFo</div>
             <div className="lofo-logo-sub">Lost and Found</div>
