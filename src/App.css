@@ -1,184 +1,511 @@
-.counter {
-  font-size: 16px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  color: var(--accent);
-  background: var(--accent-bg);
-  border: 2px solid transparent;
-  transition: border-color 0.3s;
-  margin-bottom: 24px;
-
-  &:hover {
-    border-color: var(--accent-border);
-  }
-  &:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-  }
+/* Reset dasar */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.hero {
-  position: relative;
-
-  .base,
-  .framework,
-  .vite {
-    inset-inline: 0;
-    margin: 0 auto;
-  }
-
-  .base {
-    width: 170px;
-    position: relative;
-    z-index: 0;
-  }
-
-  .framework,
-  .vite {
-    position: absolute;
-  }
-
-  .framework {
-    z-index: 1;
-    top: 34px;
-    height: 28px;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(44deg) rotateY(39deg)
-      scale(1.4);
-  }
-
-  .vite {
-    z-index: 0;
-    top: 107px;
-    height: 26px;
-    width: auto;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(40deg) rotateY(39deg)
-      scale(0.8);
-  }
-}
-
-#center {
+/* Latar belakang pastel lembut */
+.lofo-bg {
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  gap: 25px;
-  place-content: center;
-  place-items: center;
-  flex-grow: 1;
-
-  @media (max-width: 1024px) {
-    padding: 32px 20px 24px;
-    gap: 18px;
-  }
+  justify-content: space-between;
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(
+    180deg,
+    #fdf2d6 0%,
+    #eaf7f9 50%,
+    #e8d5f5 100%
+  );
+  color: #111827;
 }
 
-#next-steps {
-  display: flex;
-  border-top: 1px solid var(--border);
-  text-align: left;
-
-  & > div {
-    flex: 1 1 0;
-    padding: 32px;
-    @media (max-width: 1024px) {
-      padding: 24px 20px;
-    }
-  }
-
-  .icon {
-    margin-bottom: 16px;
-    width: 22px;
-    height: 22px;
-  }
-
-  @media (max-width: 1024px) {
-    flex-direction: column;
-    text-align: center;
-  }
-}
-
-#docs {
-  border-right: 1px solid var(--border);
-
-  @media (max-width: 1024px) {
-    border-right: none;
-    border-bottom: 1px solid var(--border);
-  }
-}
-
-#next-steps ul {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  gap: 8px;
-  margin: 32px 0 0;
-
-  .logo {
-    height: 18px;
-  }
-
-  a {
-    color: var(--text-h);
-    font-size: 16px;
-    border-radius: 6px;
-    background: var(--social-bg);
-    display: flex;
-    padding: 6px 12px;
-    align-items: center;
-    gap: 8px;
-    text-decoration: none;
-    transition: box-shadow 0.3s;
-
-    &:hover {
-      box-shadow: var(--shadow);
-    }
-    .button-icon {
-      height: 18px;
-      width: 18px;
-    }
-  }
-
-  @media (max-width: 1024px) {
-    margin-top: 20px;
-    flex-wrap: wrap;
-    justify-content: center;
-
-    li {
-      flex: 1 1 calc(50% - 8px);
-    }
-
-    a {
-      width: 100%;
-      justify-content: center;
-      box-sizing: border-box;
-    }
-  }
-}
-
-#spacer {
-  height: 88px;
-  border-top: 1px solid var(--border);
-  @media (max-width: 1024px) {
-    height: 48px;
-  }
-}
-
-.ticks {
-  position: relative;
+/* Container pembatas lebar agar posisi teks & tombol tidak terlalu ke pinggir */
+.lofo-container {
   width: 100%;
+  max-width: 940px; /* Lebih ramping agar jarak tepi kiri & kanan lebih lega */
+  margin: 0 auto;
+  padding: 0 32px;
+}
 
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    top: -4.5px;
-    border: 5px solid transparent;
-  }
+/* Header & Footer */
+.lofo-header,
+.lofo-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 36px;
+}
 
-  &::before {
-    left: 0;
-    border-left-color: var(--border);
+.lofo-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.lofo-logo-title {
+  font-weight: 800;
+  font-size: 16px;
+  line-height: 1;
+  color: #1f2937;
+}
+
+.lofo-logo-sub {
+  font-size: 9px;
+  color: #6b7280;
+}
+
+/* Hero Section (HomePage) */
+.hero-section {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Berkumpul di tengah, tidak terlempar ke ujung */
+  gap: 80px;               /* Jarak pasti antara blok teks dan blok tombol */
+  padding: 40px 0;
+}
+
+.hero-title {
+  font-size: 4.25rem; /* Ukuran besar tegas seperti di Figma */
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: #18181b;
+}
+
+/* Gradasi khusus "With Ease" (Hijau sage ke krem muda) */
+.text-gradasi-hijau {
+  display: inline-block;
+  width: fit-content;
+  background: linear-gradient(90deg, #4b7064 0%, #9ab3a6 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent; /* Cadangan untuk browser standar */
+}
+
+/* Gradasi khusus judul halaman (Merah bata ke hijau sage) */
+.judul-halaman-gradasi {
+  display: inline-block;
+  font-size: 3rem;
+  font-weight: 800;
+  background: linear-gradient(90deg, #983b32 0%, #4d7267 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-subtitle {
+  margin-top: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #374151;
+}
+
+/* Grup Tombol Lost & Found di Kanan */
+.hero-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 320px; /* Lebar tombol memanjang sesuai desain */
+}
+
+.btn-lost,
+.btn-found {
+  width: 100%;
+  padding: 13px 24px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn-lost {
+  background: linear-gradient(90deg, #ea7d73 0%, #f9dada 75%, #ffffff 100%);
+  border: 1px solid #d98c85;
+  box-shadow: 0 4px 10px rgba(234, 125, 115, 0.25);
+}
+
+.btn-found {
+  background: linear-gradient(90deg, #86efac 0%, #dcfce7 75%, #ffffff 100%);
+  border: 1px solid #86d9a5;
+  box-shadow: 0 4px 10px rgba(134, 239, 172, 0.25);
+}
+
+.btn-lost:hover,
+.btn-found:hover {
+  transform: translateY(-2px);
+}
+
+/* Responsif untuk layar HP (seperti baris atas gambar Figma) */
+@media (max-width: 768px) {
+  .lofo-container {
+    padding: 0 24px;
   }
-  &::after {
-    right: 0;
-    border-right-color: var(--border);
+  .hero-section {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 32px;
+  }
+  .hero-title {
+    font-size: 2.75rem;
+  }
+  .hero-actions {
+    width: 100%;
+  }
+}
+
+.lofo-main {
+  flex: 1;                 /* Mengambil semua sisa tinggi antara Header dan Footer */
+  display: flex;
+  align-items: center;     /* Posisi vertikal (atas-bawah) tepat di tengah */
+  justify-content: center; /* Posisi horizontal (kiri-kanan) tepat di tengah */
+  width: 100%;
+}
+
+/* === HALAMAN LISTING (LOST ITEM & FOUND ITEM) === */
+.listing-wrapper {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 20px 32px 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Bar Pencarian + Tombol Lost/Found di Sebelahnya */
+.search-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  max-width: 820px;
+  margin: 12px 0 32px;
+}
+
+.search-input-box {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px solid #9ca3af;
+  border-radius: 999px;
+  padding: 8px 16px;
+  gap: 10px;
+}
+
+.search-input-box input {
+  border: none;
+  background: transparent;
+  outline: none;
+  width: 100%;
+  font-size: 14px;
+  color: #1f2937;
+}
+
+.search-action-btn {
+  width: 240px;
+  padding: 10px 20px;
+  border-radius: 10px;
+}
+
+/* Grid 4 Kartu di Desktop, Responsif ke 1 Kolom di HP */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  width: 100%;
+}
+
+@media (max-width: 960px) {
+  .cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .search-bar-row {
+    flex-direction: column;
+  }
+  .search-action-btn {
+    width: 100%;
+  }
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Desain Kartu Item Sesuai Figma */
+.item-card {
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid #c4b5fd;
+  border-radius: 14px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.card-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #4c3b71;
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-image-placeholder {
+  width: 100%;
+  height: 130px;
+  background-color: #d1d5db;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6b7280;
+  font-size: 13px;
+  overflow: hidden;
+}
+
+.card-image-placeholder img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.btn-contact {
+  align-self: flex-end;
+  margin-top: auto;
+  background-color: #4c3b71;
+  color: #ffffff;
+  border: none;
+  padding: 6px 18px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-contact:hover {
+  background-color: #3b2d59;
+}
+
+/* Menu Dropdown Garis Tiga di Pojok Kanan Atas */
+.nav-drawer {
+  position: absolute;
+  top: 68px;
+  right: 36px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  z-index: 50;
+  min-width: 190px;
+}
+
+.nav-drawer button {
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  color: #1f2937;
+}
+
+.nav-drawer button:hover {
+  background-color: #f3f4f6;
+}
+
+/* === HALAMAN FORM REPORT (LOST & FOUND) === */
+.form-wrapper {
+  width: 100%;
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 20px 24px 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-box {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.45);
+  border: 1px solid #9ca3af;
+  border-radius: 8px;
+  padding: 28px 36px;
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  align-items: center;
+  gap: 16px;
+}
+
+.form-row.align-top {
+  align-items: start;
+}
+
+.form-row label {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+  width: 100%;
+  background-color: #d1d5db;
+  border: 1px solid #9ca3af;
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 13px;
+  font-family: inherit;
+  color: #111827;
+  outline: none;
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  background-color: #e5e7eb;
+  border-color: #4c3b71;
+}
+
+.upload-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #d1d5db;
+  border: 1px solid #9ca3af;
+  border-radius: 4px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.form-actions-row {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 10px;
+}
+
+.btn-form-submit,
+.btn-form-reset {
+  padding: 7px 26px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid #9ca3af;
+}
+
+.btn-form-submit {
+  background-color: #4c3b71;
+  color: #ffffff;
+  border-color: #4c3b71;
+}
+
+.btn-form-reset {
+  background-color: #e5e7eb;
+  color: #1f2937;
+}
+
+/* === HALAMAN ITEM DETAILS === */
+.detail-wrapper {
+  width: 100%;
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 20px 24px 48px;
+}
+
+.detail-card {
+  background-color: #fbf5d8;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  padding: 28px 40px 36px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.detail-image-box {
+  width: 100%;
+  max-width: 480px;
+  height: 230px;
+  background-color: #d1d5db;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6b7280;
+  font-size: 28px;
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+
+.detail-image-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.detail-info-list {
+  width: 100%;
+  max-width: 480px;
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  color: #1f2937;
+}
+
+.detail-info-list strong {
+  font-weight: 800;
+}
+
+@media (max-width: 600px) {
+  .form-box {
+    padding: 20px;
+  }
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .detail-card {
+    padding: 20px;
   }
 }
