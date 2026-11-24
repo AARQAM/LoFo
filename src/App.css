@@ -520,3 +520,53 @@
   width: 30px;
   height: 30px;
 }
+
+.btn-lost,
+.btn-found {
+  width: 100%;
+  padding: 13px 24px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  /* Mengatur kelancaran semua animasi (gerakan, warna, bayangan, cahaya) */
+  transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Kondisi Normal */
+.btn-lost {
+  background: linear-gradient(90deg, #ea7d73 0%, #f9dada 75%, #ffffff 100%);
+  border: 1px solid #d98c85;
+  box-shadow: 0 4px 10px rgba(234, 125, 115, 0.25);
+}
+
+.btn-found {
+  background: linear-gradient(90deg, #86efac 0%, #dcfce7 75%, #ffffff 100%);
+  border: 1px solid #86d9a5;
+  box-shadow: 0 4px 10px rgba(134, 239, 172, 0.25);
+}
+
+/* Efek Highlight saat Mouse di Atas Tombol (:hover) */
+.btn-lost:hover {
+  transform: translateY(-3px) scale(1.02); /* Sedikit terangkat & membesar */
+  background: linear-gradient(90deg, #e05a4e 0%, #f5b7b1 65%, #ffffff 100%); /* Warna coral lebih menyala */
+  border-color: #c0392b;
+  box-shadow: 0 8px 20px rgba(234, 125, 115, 0.55); /* Pendaran cahaya coral */
+  filter: brightness(1.04);
+}
+
+.btn-found:hover {
+  transform: translateY(-3px) scale(1.02); /* Sedikit terangkat & membesar */
+  background: linear-gradient(90deg, #4ade80 0%, #bbf7d0 65%, #ffffff 100%); /* Warna mint lebih menyala */
+  border-color: #16a34a;
+  box-shadow: 0 8px 20px rgba(74, 222, 128, 0.55); /* Pendaran cahaya hijau mint */
+  filter: brightness(1.04);
+}
+
+/* Efek Tekan saat Diklik (:active) */
+.btn-lost:active,
+.btn-found:active {
+  transform: translateY(0) scale(0.99);
+}
