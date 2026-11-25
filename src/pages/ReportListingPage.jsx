@@ -7,7 +7,6 @@ function ReportListingPage({
   bukaDetail,
   pindahHalaman,
 }) {
-  const [kataKunciInput, setKataKunciInput] = useState("");
   const [kataKunci, setKataKunci] = useState("");
   const [kategoriDipilih, setKategoriDipilih] = useState("");
   const [lokasiDipilih, setLokasiDipilih] = useState("");
@@ -20,11 +19,13 @@ function ReportListingPage({
   const isLost = tipe === "lost";
   const judulHalaman = isLost ? "Lost Item" : "Found Item";
 
-  // Mengambil daftar kategori dan lokasi yang tersedia.
+  const laporanSesuaiTipe = daftarLaporan.filter(
+    (item) => item.tipe === tipe
+  );
+
   const daftarKategori = [
     ...new Set(
-      daftarLaporan
-        .filter((item) => item.tipe === tipe)
+      laporanSesuaiTipe
         .map((item) => item.kategori)
         .filter(Boolean)
     ),
@@ -32,24 +33,15 @@ function ReportListingPage({
 
   const daftarLokasi = [
     ...new Set(
-      daftarLaporan
-        .filter((item) => item.tipe === tipe)
+      laporanSesuaiTipe
         .map((item) => item.lokasi)
         .filter(Boolean)
     ),
   ].sort();
 
-  // Menjalankan pencarian.
-  function jalankanPencarian() {
-    setKataKunci(kataKunciInput.trim());
-    setHalamanAktif(1);
-  }
-
   // Search dan filter laporan.
-  const hasilFilter = daftarLaporan.filter((item) => {
-    if (item.tipe !== tipe) return false;
-
-    const kata = kataKunci.toLowerCase();
+  const hasilFilter = laporanSesuaiTipe.filter((item) => {
+    const kata = kataKunci.trim().toLowerCase();
 
     const cocokSearch =
       !kata ||
@@ -78,16 +70,16 @@ function ReportListingPage({
     Math.ceil(hasilFilter.length / batasPerHalaman)
   );
 
-  const indeksAwal = (halamanAktif - 1) * batasPerHalaman;
+  const halamanAman = Math.min(halamanAktif, totalHalaman);
+  const indeksAwal = (halamanAman - 1) * batasPerHalaman;
 
   const itemTampil = hasilFilter.slice(
     indeksAwal,
     indeksAwal + batasPerHalaman
   );
 
-  // Menghapus pencarian dan semua filter.
+  // Reset pencarian dan filter.
   function resetFilter() {
-    setKataKunciInput("");
     setKataKunci("");
     setKategoriDipilih("");
     setLokasiDipilih("");
@@ -96,13 +88,15 @@ function ReportListingPage({
 
   return (
     <div className="listing-wrapper">
-      <h1 className="judul-halaman-gradasi">{judulHalaman}</h1>
+      <h1 className="judul-halaman-gradasi">
+        {judulHalaman}
+      </h1>
 
-      {/* Search */}
+      {/* Search Bar */}
       <div className="search-bar-row">
         <div className="search-input-box">
 
-          {/* Tombol buka/tutup filter */}
+          {/* Tombol Filter */}
           <button
             type="button"
             className="search-icon-btn"
@@ -113,31 +107,48 @@ function ReportListingPage({
             ☰
           </button>
 
-          {/* Input pencarian */}
-          <input
-            type="text"
-            placeholder="Cari nama barang, lokasi, deskripsi..."
-            value={kataKunciInput}
-            onChange={(e) => setKataKunciInput(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                jalankanPencarian();
-              }
-            }}
-          />
+          {/* Input Search hanya muncul saat ikon diklik */}
+          {pencarianTerbuka && (
+            <input
+              type="text"
+              placeholder="Cari nama barang, lokasi, deskripsi..."
+              value={kataKunci}
+              autoFocus
+              onChange={(e) => {
+                setKataKunci(e.target.value);
+                setHalamanAktif(1);
+              }}
+            />
+          )}
 
-          {/* Tombol jalankan pencarian */}
+          {/* Tombol Hapus Search */}
+          {kataKunci && (
+            <button
+              type="button"
+              className="search-icon-btn"
+              onClick={() => {
+                setKataKunci("");
+                setHalamanAktif(1);
+              }}
+              aria-label="Hapus pencarian"
+            >
+              ✕
+            </button>
+          )}
+
+          {/* Tombol Buka/Tutup Search */}
           <button
             type="button"
             className="search-icon-btn"
             onClick={() => {
-              if (!pencarianTerbuka) {
-                setPencarianTerbuka(true);
-              } else {
-                jalankanPencarian();
-              }
+              setPencarianTerbuka(!pencarianTerbuka);
             }}
-            aria-label="Buka atau jalankan pencarian"
+            aria-label={
+              pencarianTerbuka
+                ? "Tutup pencarian"
+                : "Buka pencarian"
+            }
+            aria-expanded={pencarianTerbuka}
           >
             🔍
           </button>
@@ -153,7 +164,7 @@ function ReportListingPage({
         </button>
       </div>
 
-      {/* Filter kategori dan lokasi */}
+      {/* Filter Kategori dan Lokasi */}
       {filterTerbuka && (
         <div className="filter-row">
           <select
@@ -198,20 +209,25 @@ function ReportListingPage({
         </div>
       )}
 
-      {/* Jumlah hasil */}
+      {/* Jumlah Hasil */}
       <p className="hasil-count">
         Menampilkan {hasilFilter.length} laporan
       </p>
 
-      {/* Daftar laporan */}
+      {/* Daftar Laporan */}
       {itemTampil.length === 0 ? (
         <div className="empty-result">
           <p>
-            Tidak ada laporan yang sesuai dengan pencarian atau filter.
+            {laporanSesuaiTipe.length === 0
+              ? "Belum ada laporan untuk kategori ini."
+              : "Tidak ada laporan yang sesuai dengan pencarian atau filter."}
           </p>
-          <button onClick={resetFilter}>
-            Tampilkan Semua Laporan
-          </button>
+
+          {(kataKunci || kategoriDipilih || lokasiDipilih) && (
+            <button onClick={resetFilter}>
+              Tampilkan Semua Laporan
+            </button>
+          )}
         </div>
       ) : (
         <div className="cards-grid">
@@ -284,8 +300,10 @@ function ReportListingPage({
       {totalHalaman > 1 && (
         <div className="pagination">
           <button
-            disabled={halamanAktif === 1}
-            onClick={() => setHalamanAktif((halaman) => halaman - 1)}
+            disabled={halamanAman === 1}
+            onClick={() =>
+              setHalamanAktif((halaman) => halaman - 1)
+            }
           >
             Previous
           </button>
@@ -296,7 +314,7 @@ function ReportListingPage({
           ).map((nomor) => (
             <button
               key={nomor}
-              className={halamanAktif === nomor ? "active" : ""}
+              className={halamanAman === nomor ? "active" : ""}
               onClick={() => setHalamanAktif(nomor)}
             >
               {nomor}
@@ -304,8 +322,10 @@ function ReportListingPage({
           ))}
 
           <button
-            disabled={halamanAktif === totalHalaman}
-            onClick={() => setHalamanAktif((halaman) => halaman + 1)}
+            disabled={halamanAman === totalHalaman}
+            onClick={() =>
+              setHalamanAktif((halaman) => halaman + 1)
+            }
           >
             Next
           </button>
