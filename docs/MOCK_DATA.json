@@ -1,0 +1,126 @@
+{
+  "categories": [
+    {
+      "id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+      "name": "Electronics"
+    },
+    {
+      "id": "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb",
+      "name": "Accessories"
+    },
+    {
+      "id": "cccccccc-cccc-4ccc-8ccc-cccccccccccc",
+      "name": "Documents"
+    },
+    {
+      "id": "dddddddd-dddd-4ddd-8ddd-dddddddddddd",
+      "name": "Clothing"
+    },
+    {
+      "id": "eeeeeeee-eeee-4eee-8eee-eeeeeeeeeeee",
+      "name": "Others"
+    }
+  ],
+  "reports": [
+    {
+      "id": "11111111-1111-4111-8111-111111111111",
+      "title": "Black Wallet",
+      "description": "A black leather wallet was lost around the Fasilkom UI Library. It contains several cards.",
+      "type": "LOST",
+      "category": {
+        "id": "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb",
+        "name": "Accessories"
+      },
+      "location": "Fasilkom UI Library",
+      "reporterName": "Andi",
+      "contact": null,
+      "status": "ACTIVE",
+      "images": [],
+      "createdAt": "2026-11-20T09:00:00.000Z"
+    },
+    {
+      "id": "22222222-2222-4222-8222-222222222222",
+      "title": "Silver Laptop",
+      "description": "A silver laptop was found on a table near the student lounge. The owner can contact the reporter if they recognize the item.",
+      "type": "FOUND",
+      "category": {
+        "id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+        "name": "Electronics"
+      },
+      "location": "Fasilkom UI Student Lounge",
+      "reporterName": "Budi",
+      "contact": {
+        "method": "WhatsApp",
+        "value": "081234567890"
+      },
+      "status": "ACTIVE",
+      "images": [
+        {
+          "id": "f1111111-1111-4111-8111-111111111111",
+          "url": "https://placehold.co/600x400?text=Silver+Laptop"
+        }
+      ],
+      "createdAt": "2026-11-21T04:30:00.000Z"
+    },
+    {
+      "id": "33333333-3333-4333-8333-333333333333",
+      "title": "Student ID Card",
+      "description": "A student ID card was found near the main entrance of Fasilkom UI.",
+      "type": "FOUND",
+      "category": {
+        "id": "cccccccc-cccc-4ccc-8ccc-cccccccccccc",
+        "name": "Documents"
+      },
+      "location": "Fasilkom UI Main Entrance",
+      "reporterName": "Citra",
+      "contact": null,
+      "status": "ACTIVE",
+      "images": [],
+      "createdAt": "2026-11-22T02:15:00.000Z"
+    },
+    {
+      "id": "44444444-4444-4444-8444-444444444444",
+      "title": "Blue Jacket",
+      "description": "A blue jacket was lost after a class session. It may have been left in one of the classrooms.",
+      "type": "LOST",
+      "category": {
+        "id": "dddddddd-dddd-4ddd-8ddd-dddddddddddd",
+        "name": "Clothing"
+      },
+      "location": "Fasilkom UI Classroom",
+      "reporterName": "Dina",
+      "contact": {
+        "method": "Email",
+        "value": "dina@example.com"
+      },
+      "status": "ACTIVE",
+      "images": [
+        {
+          "id": "f2222222-2222-4222-8222-222222222222",
+          "url": "https://placehold.co/600x400?text=Blue+Jacket"
+        },
+        {
+          "id": "f3333333-3333-4333-8333-333333333333",
+          "url": "https://placehold.co/600x400?text=Jacket+Detail"
+        }
+      ],
+      "createdAt": "2026-11-23T07:45:00.000Z"
+    },
+    {
+      "id": "55555555-5555-4555-8555-555555555555",
+      "title": "Water Bottle",
+      "description": "A reusable water bottle was found near the canteen. It has a simple black design.",
+      "type": "FOUND",
+      "category": {
+        "id": "eeeeeeee-eeee-4eee-8eee-eeeeeeeeeeee",
+        "name": "Others"
+      },
+      "location": "Fasilkom UI Canteen",
+      "reporterName": "Evan",
+      "contact": null,
+      "status": "ACTIVE",
+      "images": [],
+      "createdAt": "2026-11-24T05:20:00.000Z"
+    }
+  ]
+}
